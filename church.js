@@ -668,28 +668,49 @@ document.querySelectorAll('.event-card, .ministry-card, .gallery-item').forEach(
 
 window.addEventListener('scroll', animateOnScroll);
 
-// Resize Handler - DEBOUNCED
+// Resize Handler - DEBOUNCED & IMPROVED
 let resizeTimer;
+let lastWidth = window.innerWidth;
+
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-        currentEventIndex = 0;
-        if (eventSlider) eventSlider.style.transform = 'translateX(0)';
+        const currentWidth = window.innerWidth;
+        const wasDesktop = lastWidth > 768;
+        const isDesktop = currentWidth > 768;
         
-        updateSermonDisplay();
-        updateGalleryDisplay();
-        updateMinistriesDisplay();
-        updateTestimonialDisplay();
+        // Only update if crossing the mobile/desktop breakpoint
+        if (wasDesktop !== isDesktop) {
+            // Reset indices when switching views
+            currentSermonIndex = 0;
+            currentTestimonialIndex = 0;
+            currentMinistryIndex = 0;
+            currentGalleryPage = 1;
+            currentEventPage = 1;
+            
+            // Stop all auto-play
+            stopEventsAuto();
+            stopGalleryAuto();
+            stopMinistriesAuto();
+            stopSermonAuto();
+            
+            // Update displays
+            updateSermonDisplay();
+            updateGalleryDisplay();
+            updateMinistriesDisplay();
+            updateTestimonialDisplay();
+            updateEventsDisplay();
+            
+            // Restart auto-play only on mobile
+            if (!isDesktop) {
+                startGalleryAuto();
+                startMinistriesAuto();
+                startSermonAuto();
+                startEventsAuto();
+            }
+        }
         
-        stopEventsAuto();
-        stopGalleryAuto();
-        stopMinistriesAuto();
-        stopSermonAuto();
-        startGalleryAuto();
-        startMinistriesAuto();
-        startSermonAuto();
-        startEventsAuto();
-
+        lastWidth = currentWidth;
     }, 250);
 });
 
@@ -730,6 +751,7 @@ window.addEventListener('load', () => {
         });
     }, 100);
 });
+
 if (eventsGrid) {
     handleSwipe(
         eventsGrid,
