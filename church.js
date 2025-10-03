@@ -302,12 +302,14 @@ const sermonCards = document.querySelectorAll('.sermon-card');
 function updateSermonDisplay() {
     if (window.innerWidth <= 768 && sermonCards.length > 0) {
         sermonCards.forEach((card, index) => {
-            card.classList.remove('active');
             if (index === currentSermonIndex) {
                 card.classList.add('active');
+            } else {
+                card.classList.remove('active');
             }
         });
     } else {
+        // Desktop: show all, remove active class
         sermonCards.forEach(card => {
             card.classList.remove('active');
             card.style.display = 'block';
@@ -349,19 +351,20 @@ const testimonialCards = document.querySelectorAll('.testimonial-card');
 function updateTestimonialDisplay() {
     if (window.innerWidth <= 768 && testimonialCards.length > 0) {
         testimonialCards.forEach((card, index) => {
-            card.classList.remove('active');
             if (index === currentTestimonialIndex) {
                 card.classList.add('active');
+            } else {
+                card.classList.remove('active');
             }
         });
     } else {
+        // Desktop: show all, remove active class
         testimonialCards.forEach(card => {
             card.classList.remove('active');
             card.style.display = 'block';
         });
     }
 }
-
 function moveTestimonialCarousel(direction) {
     if (window.innerWidth <= 768 && testimonialCards.length > 0) {
         if (direction === 'next') {
@@ -711,9 +714,12 @@ window.addEventListener('load', () => {
     updateEventsDisplay();
     updateGalleryDisplay();
     updateMinistriesDisplay();
+    updateSermonDisplay();           
+    updateTestimonialDisplay();
     startEventsAuto();
     startGalleryAuto();
     startMinistriesAuto();
+    startSermonAuto();             
     animateOnScroll();
     
     setTimeout(() => {
