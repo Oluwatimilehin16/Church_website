@@ -1699,7 +1699,7 @@
 .nav-menu {
     display: none;
     position: fixed;
-    top: 90px; /* below header */
+    top: 200px; /* below header */
     right: -380px; /* hidden offscreen */
     width: 320px;
     height: auto;
