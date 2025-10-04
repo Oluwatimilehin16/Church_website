@@ -19,6 +19,7 @@
             color: var(--text);
             overflow-x: hidden;
             background: #000;
+            position: relative;
         }
 
         /* Smooth Scroll */
@@ -179,6 +180,8 @@
             gap: 15px;
             cursor: pointer;
             animation: fadeIn 1s;
+
+    margin-left: -20px;
         }
 
         @keyframes fadeIn {
@@ -210,13 +213,12 @@
             object-fit: cover;
         }
 
-        .logo-text h2 {
-            font-size: 22px;
-            color: var(--primary);
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
+       .logo-text h2 {
+    font-size: 19px;
+    color: var(--primary);
+    font-weight: 800;
+    letter-spacing: 1px;
+    } 
         .logo-text p {
             font-size: 12px;
             color: #7f8c8d;
@@ -2414,7 +2416,11 @@
     }
     
     .logo-text h2 {
-        font-size: 16px;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        line-height: 1.2;
+        white-space: normal; /* Allow wrapping on mobile */
+        max-width: 200px;
     }
     
     nav {
@@ -2817,3 +2823,28 @@
             left: 0;
             z-index: 0;
         }
+        @media (max-width: 450px) {
+    .map-section {
+        height: auto;
+        min-height: 500px;
+        position: relative;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .map-section iframe {
+        height: 500px;
+        width: 100%;
+        display: block;
+    }
+    
+    .map-overlay-info {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 85%;
+        padding: 20px 15px;
+        z-index: 10;
+    }
+}
